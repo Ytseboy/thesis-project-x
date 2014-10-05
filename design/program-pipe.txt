@@ -1,0 +1,9 @@
+# number means the iteration
+
+0.1 load training set
+0.1 separate set into X [features] and y [labels]
+0.1 set up network parameters and initialise weights
+0.1 Learn [optimization], find weights that gives minimal cost function value
+0.1 load test set
+0.1 separate set into test_X and test_y
+0.1 measure training fit & test accuracy

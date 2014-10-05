@@ -6,7 +6,7 @@
 #Reducing error rates in OCR
 #Haaga-Helia University of Applied Sciences, Finland
 
-#source needed scripts
+#include
 source('dataLoad.r')
 
 #run actual stuff
@@ -33,7 +33,25 @@ input_layer_size <- n
 hidden_layer_size <- 2
 num_labels <- 10 # corresponding to amount of classes [0:9]
 
+#random initialisation of network weights
 d <- 0.09 # weights initialization helper
-Theta1 <- 0 #should matrix with ranodm values
-Theta2 <- 0 #should matrix with ranodm values
+theta1amount <- hidden_layer_size * (input_layer_size + 1)
+theta2amount <- num_labels * (hidden_layer_size + 1)
+
+#runif(amount of numbers to generate, minimum, maximum)
+Theta1 <- matrix(runif(theta1amount, 0.0, 1.0), ncol=input_layer_size + 1) * (2*d) - d 
+Theta2 <- matrix(runif(theta2amount, 0.0, 1.0), ncol=hidden_layer_size + 1) * (2*d) - d
+
+#regularisation parameter, will be needed later
+lambda <- 0 
+
+#call Cost function at initial stage
+J <- 100 #TODO: separate script for cost function
+
+print(paste("Cost with initial weghts = ", J))
+print("Press [enter] to continue")
+readline()
+
+#Training ANN
+print("Training NN...")
 

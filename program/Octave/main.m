@@ -9,9 +9,14 @@
 clear ; close all; clc
 disp('***Hello project-x***');
 
+%% User defined parameters
+trainSetFileName = '../train_1to3000.csv';
+crossSetFileName = '../train_3001to4000.csv';
+testSetFileName = '../train_4001to5000.csv';
+
 %Data load
 disp('Loading Training set...');
-data = load('train_1to2000.csv');
+data = load(trainSetFileName);
 disp('Loaded...');
 [m, columnsAmount] = size(data);
 n = columnsAmount-1;
@@ -73,7 +78,7 @@ pause;
 disp('Basic evaluation....');
 
 %Load test/cross-validation data
-testData = load('train_2001to3000.csv');
+testData = load(testSetFileName);
 
 test_y = testData(:, 1) + 1; % Swap values by one
 test_X = testData(:, [2:1:n+1]); 

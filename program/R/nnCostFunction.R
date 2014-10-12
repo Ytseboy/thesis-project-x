@@ -24,9 +24,20 @@ nnCostFunction <- function(Theta1, Theta2, input_layer_size, hidden_layer_size, 
 	Z3 <- A2 %*% t(Theta2)
 	H <- A3 <- sigmoid(Z3) # hypothesis
 
-	J = (1/m)*sum(sum((-Y)*log(H) - (1 - Y) * log(1-H), 2))
+	reg <- (lambda/(2*m))*(sum(sum(Theta1(, -1)^2, 2)) + sum(sum(Theta2(,-1)^2, 2)));
 
-	#TODO penalty + regularization
+	J <- (1/m)*sum(sum((-Y)*log(H) - (1 - Y) * log(1-H), 2))
+	J <- J + reg
+
+	#backpropagation
+	Sigma3 <- A3 - Y
+	Sigma2 <- (Sigma3 %*% Theta2 * sigmoidGradient(cbind(matrix(1, dim(Z2)[1], 1), Z2)))[,-1]
+
+	Delta_1 <- t(Sigma2) %*% A1
+	Delta_2 <- t(Sigma3) %*% A2
+
+	Theta1_grad = Delta_1/m + (lambda/m)* cbind(matrix(0, dim(Theta1)[1], 1), Theta1(, -1))
+	Theta2_grad = Delta_2/m + (lambda/m)* cbind(matrix(0, dim(Theta2)[1], 1), Theta2(, -1))
 
 	return(J)
 

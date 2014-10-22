@@ -7,3 +7,11 @@
 0.1 load test set
 0.1 separate set into test_X and test_y
 0.1 measure training fit & test accuracy
+
+0.2 Learning curve plot
+0.2 Cost function?
+0.2 Error-rate plot wtithin respect to hidden units
+
+#stand-alone func
+xx Display data (image)
+xx Make Kaggle submission

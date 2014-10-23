@@ -13,8 +13,8 @@ library(neuralnet)
 source('classify.r')
 
 #Global variables
-digits_FileName <- "../train_1to3000.csv"
-hidden_layer_size <- 5
+digits_FileName <- "../train_headers_1to3000.csv"
+hidden_layer_size <- 50
 maxiter = 200 # Optimisation steps for Performance control
 
 #run actual stuff 
@@ -37,7 +37,7 @@ digits_test_set <- digits_dataset[(b2+1):m, ]
 #Trainining model
 print("Training Neural Network...")
 f <- as.formula(paste("label ~", paste(colnames(digits_train_set)[-1], collapse = " + ")))
-model <- neuralnet(f, data=digits_train_set, hidden=hidden_layer_size, stepmax = maxiter)
+model <- neuralnet(f, data=digits_train_set, hidden=hidden_layer_size, threshold = 10, stepmax = 1000)
 
 ##Training fit and test accuracy
 print("Model evaluation...")

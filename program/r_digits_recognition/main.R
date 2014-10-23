@@ -12,9 +12,9 @@ rm(list=ls())
 library(neuralnet)
 
 #Global variables
-digits_FileName <- "../train_headers_1to3000.csv"
+digits_FileName <- "../trainLoadTry_headers.csv"
 hidden_layer_size <- 10
-tr = 1
+tr = 0.1
 
 #run actual stuff 
 print("Starting Actual Stuff")
@@ -38,4 +38,6 @@ print("Training...")
 f <- as.formula(paste("label ~", paste(colnames(digits_train_set)[-1], collapse = " + ")))
 model = neuralnet(f, data=digits_train_set, hidden=hidden_layer_size, threshold = tr)
 
-
+#Training fit and test accuracy
+fit <- compute(model, digits_train_set[-1])$net.result
+acc <- compute(model, digits_test_set[-1])$net.result

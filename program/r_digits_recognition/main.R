@@ -14,12 +14,13 @@ library(neuralnet)
 #Global variables
 digits_FileName <- "../train_headers_1to3000.csv"
 hidden_layer_size <- 10
+tr = 1
 
 #run actual stuff 
 print("Starting Actual Stuff")
 
 #loading into the main memory
-digits_dataset <- read.csv(digits_train)
+digits_dataset <- read.csv(digits_FileName)
 print("Data Loaded...")
 
 #Calculation for 60/20/20
@@ -35,6 +36,6 @@ digits_test_set <- digits_dataset[(b2+1):m, ]
 #Trainining model
 print("Training...")
 f <- as.formula(paste("label ~", paste(colnames(digits_train_set)[-1], collapse = " + ")))
-model = neuralnet(f, data=digits_train_set, hidden=hidden_layer_size, threshold = 0.01)
+model = neuralnet(f, data=digits_train_set, hidden=hidden_layer_size, threshold = tr)
 
 

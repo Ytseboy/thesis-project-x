@@ -13,7 +13,7 @@ library(neuralnet)
 source('classify.r')
 
 #Global variables
-digits_FileName <- "../trainLoadTry_headers.csv"
+digits_FileName <- "../train_1to3000.csv"
 hidden_layer_size <- 5
 maxiter = 200 # Optimisation steps for Performance control
 

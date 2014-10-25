@@ -1,4 +1,7 @@
 classify <- function(model, data){
-  confidence <- predict(model, as.matrix(data))
-  return(max.col(confidence)-1) #-1 for shifting back, 1st class -> Zero...
+  
+  r <- max.col(predict(model, as.matrix(data)))-1
+  #-1 for shifting back, 1st class -> Zero...
+  
+  return(r) 
 }

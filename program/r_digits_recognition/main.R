@@ -13,10 +13,9 @@ library(neuralnet)
 source('classify.r')
 
 #Global variables
-digits_FileName <- "../trainLoadTry_headers.csv"
-hidden_layer_size <- 5
-maxiter = 200 # Optimisation steps for Performance control
-tr = 5 #Threshold for partial derevative for Performance control
+digits_FileName <- "../train_headers_1to5000.csv"
+hidden_layer_size <- 50
+tr = 1 #Threshold for partial derevative for Performance control
 
 #run actual stuff 
 print("Starting Actual Stuff")
@@ -24,8 +23,8 @@ print("Starting Actual Stuff")
 ###Data preprocessing###
 #loading into the main memory
 digits_dataset <- read.csv(digits_FileName)
-print("Data Loaded...")
 m <- nrow(digits_dataset)
+print(paste("Data Loaded... ", m, " rows"))
 
 #Label binary transformation
 y <- digits_dataset[,1] + 1 # +1 for shift, so Zero is 1st class, One is 2nd class....
@@ -51,21 +50,27 @@ digits_train_set <- digits_dataset[1:b1, ]
 digits_validation_set <- digits_dataset[(b1+1):b2, ]
 digits_test_set <- digits_dataset[(b2+1):m, ]
 
+print(paste("Train_set ", nrow(digits_train_set), " rows"))
+print(paste("Test_set ", nrow(digits_test_set), " rows"))
+
 #Binary dataset for Training the model
 digits_train_binary <- cbind(Y[1:b1,], digits_train_set[,-1])
 colnames(digits_train_binary) <- c(labelColumnNames, featuresColumnNames)
 
+##Temporary, clean memory a bit
+rm(digits_FileName, digits_dataset, m, y, num_classes, I, Y, i, b1, b2)
+
 ###Trainining model###
-print("Training Neural Network...")
+print(paste("Training Neural Network... ", hidden_layer_size, " Hidden units"))
 f <- as.formula(paste(paste(labelColumnNames, collapse = "+"),
                       "~", 
                       paste(featuresColumnNames, collapse = "+")))
 model <- neuralnet(f, data=digits_train_binary, hidden=hidden_layer_size, 
-                   threshold = 0.01, lifesign="full",
+                   threshold = tr, lifesign="full",
                    lifesign.step = 10, linear.output = FALSE)
 
 ###Training fit and test accuracy
-print("Model evaluation...")
+print("Model evaluation... ")
 
 #Classify the data
 classTrain <- classify(model, digits_train_set[,-1])

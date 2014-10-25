@@ -13,33 +13,58 @@ library(neuralnet)
 source('classify.r')
 
 #Global variables
-digits_FileName <- "../train_headers_1to3000.csv"
-hidden_layer_size <- 50
+digits_FileName <- "../trainLoadTry_headers.csv"
+hidden_layer_size <- 5
 maxiter = 200 # Optimisation steps for Performance control
+tr = 5 #Threshold for partial derevative for Performance control
 
 #run actual stuff 
 print("Starting Actual Stuff")
 
+###Data preprocessing###
 #loading into the main memory
 digits_dataset <- read.csv(digits_FileName)
 print("Data Loaded...")
+m <- nrow(digits_dataset)
+
+#Label binary transformation
+y <- digits_dataset[,1] + 1 # +1 for shift, so Zero is 1st class, One is 2nd class....
+num_classes <- length(unique(y)) #amount of classes
+
+I <- diag(num_classes) #Identity matrix
+Y <- matrix(0, m, num_classes) #Binary matrix of the class
+
+for(i in 1:m){
+  Y[i,] <- I[y[i],]
+}
+
+#Column_Names and constructing the dataset with binary label
+labelColumnNames <- paste("label", 0:9, sep = "")
+featuresColumnNames <- colnames(digits_dataset)[-1]
 
 #Calculation for 60/20/20
-m = nrow(digits_dataset)
-b1 = m * 0.6
-b2 = b1 + m * 0.2
+b1 <- m * 0.6
+b2 <- b1 + m * 0.2
 
 #Separate dataset into 60/20/20
-digits_train_set <- digits_dataset[1:b1, ]
+digits_train_set <- digits_dataset[1:b1, ]  
 digits_validation_set <- digits_dataset[(b1+1):b2, ]
 digits_test_set <- digits_dataset[(b2+1):m, ]
 
-#Trainining model
-print("Training Neural Network...")
-f <- as.formula(paste("label ~", paste(colnames(digits_train_set)[-1], collapse = " + ")))
-model <- neuralnet(f, data=digits_train_set, hidden=hidden_layer_size, threshold = 10, stepmax = 1000)
+#Binary dataset for Training the model
+digits_train_binary <- cbind(Y[1:b1,], digits_train_set[,-1])
+colnames(digits_train_binary) <- c(labelColumnNames, featuresColumnNames)
 
-##Training fit and test accuracy
+###Trainining model###
+print("Training Neural Network...")
+f <- as.formula(paste(paste(labelColumnNames, collapse = "+"),
+                      "~", 
+                      paste(featuresColumnNames, collapse = "+")))
+model <- neuralnet(f, data=digits_train_binary, hidden=hidden_layer_size, 
+                   threshold = 0.01, lifesign="full",
+                   lifesign.step = 10, linear.output = FALSE)
+
+###Training fit and test accuracy
 print("Model evaluation...")
 
 #Classify the data

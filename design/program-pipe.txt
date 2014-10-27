@@ -1,7 +1,7 @@
 # number means the iteration
 
 0.1 load dataset [train, cross-validation, test]
-0.1 set up network parameters and initialise weights
+0.1 set up network parameters
 0.1 Learn [optimization], find weights that gives minimal cost function value
 0.1 measure training fit & test accuracy
 

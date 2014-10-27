@@ -5,10 +5,15 @@
 0.1 Learn [optimization], find weights that gives minimal cost function value
 0.1 measure training fit & test accuracy
 
-0.2 Learning curve plot
-0.2 Cost function?
-0.2 Error-rate plot wtithin respect to hidden units
+0.3 Learning curve plot
+0.3 Cost function?
+0.3 Error-rate plot wtithin respect to hidden units
+
+0.4 Model calibration
 
 #stand-alone func
-xx Display data (image)
-xx Make Kaggle submission
+0.0 Display data (image)
+0.0 Make Kaggle submission
+0.2 Image resolution reduction (28x28 --> 14x14)
+0.2 PCA (diamensionality reduction)
+0.5 Own ideas?

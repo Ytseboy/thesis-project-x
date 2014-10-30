@@ -7,6 +7,7 @@
 
 0.3 Learning curve plot
 0.3 Cost function?
+0.3 Confusion matrix?
 0.3 Error-rate plot wtithin respect to hidden units
 
 0.4 Model calibration

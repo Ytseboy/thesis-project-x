@@ -2,7 +2,7 @@
 %% To be run after data loaded
 
 % array of possible Regularization values
-calLambda = [0; 0.1; 0.3; 0.7]; %%; 1.9; 3.7; 5.0; 10];
+calLambda = [0; 0.1; 0.3; 0.7; 1.9; 3.7; 5.0; 10];
 %resultative matrix
 resReg = zeros(length(calLambda), 3);
 

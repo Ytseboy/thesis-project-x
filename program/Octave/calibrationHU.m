@@ -2,7 +2,7 @@
 %% To be run after data loaded
 
 % array of possible Hidden units amount
-HU = [50:50:200];
+HU = [50:50:1000];
 %resultative matrix
 resHU = zeros(length(HU), 3);
 

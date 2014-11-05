@@ -11,9 +11,9 @@ disp('***Hello project-x***');
 
 %% Globals
 datasetFileName = '../reduced_14x14_fullNoHeaders.csv';
-hidden_layer_size = 50; % N hidden units
-lambda = 0; % Regularization parameter
-maxIter = 50; % Optimisation iterations
+hidden_layer_size = 850; % N hidden units
+lambda = 0.3; % Regularization parameter
+maxIter = 80; % Optimisation iterations
 
 %%% Data processing%%%
 %Data load
@@ -22,7 +22,7 @@ data = load(datasetFileName);
 disp('Loaded... Processing...');
 %Split in 60/20/20
 [mFull, columnsAmountFull] = size(data);
-c1 = mFull * 0.08; c2 = mFull * 0.1 + c1;
+c1 = mFull * 0.6; c2 = mFull * 0.2 + c1;
 trainSet = data(1:c1,:);
 valSet = data((c1+1):c2,:);
 testSet = data((c2+1):end, :);
